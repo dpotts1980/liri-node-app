@@ -1,4 +1,4 @@
-
+require("dotenv").config();
 // to access the keys in keys.js
 var keys = require("./keys.js");
 //this is an import statment//
