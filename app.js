@@ -1,6 +1,6 @@
 
 // to access the keys in keys.js
-var keys = require("./config.js");
+var keys = require("./keys.js");
 //this is an import statment//
 var Twitter = require('twitter');
 
@@ -13,3 +13,5 @@ var twitter = new Twitter ({
 
 console.log("hello");
 
+//linking to my twitter account//
+var myTweets = {screen_name: "Daniel Tweeterfield"};
