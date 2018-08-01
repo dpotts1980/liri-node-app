@@ -3,15 +3,43 @@ require("dotenv").config();
 var keys = require("./keys.js");
 //this is an import statment//
 var Twitter = require('twitter');
+var Spotify = require('node-spotify-api');
 
-var twitter = new Twitter ({
-    consumer_key: 'pB7wuoGgNeVytiwOTcM5rjFoo',
-    consumer_secret: 'y5jGzDPc3tWRmirYvQFVgQLlHxFLsC8jJJFXb9baXzVotnNKfa',
-    access_token_key: '912111857481031680-r2o82iL1gLq3lL619BbhnWIhW8SnI4g',
-    access_token_secret: 'CB0DfVuIlvauU6fqX4sD9zl6Dkgs0xDhew6tdxWgz7jO8',
-});
+var twitter = new Twitter (keys.twitter);
 
 console.log("hello");
 
+
+//to include the fs library
+var fs = require("fs");
+
+
+//setting up user command through node//
+var functCommand = process.argv[2]
+var userCommand = process.argv[3];
+
 //linking to my twitter account//
-var myTweets = {screen_name: "Daniel Tweeterfield"};
+//var myTweets = {screen_name: "Daniel Tweeterfield"};
+
+
+//run my function here
+function runSpotify(){ 
+    var spotify = new Spotify(keys._spotify);
+    
+    spotify.search({ type: 'track', query: userCommand }, function(err, data) {
+    if (err) {
+        return console.log('Error occurred: ' + err);
+    }
+    
+    console.log(data.tracks.items[0].artists); 
+    });
+}
+
+switch(functCommand){
+    case 'spotify-call':
+        runSpotify();
+        break;
+   //case 'twitter-call:
+      //runTwitter();
+      //break
+}
