@@ -5,9 +5,7 @@ var keys = require("./keys.js");
 var Twitter = require('twitter');
 var Spotify = require('node-spotify-api');
 
-var twitter = new Twitter (keys.twitter);
 
-console.log("hello");
 
 
 //to include the fs library
@@ -16,7 +14,15 @@ var fs = require("fs");
 
 //setting up user command through node//
 var functCommand = process.argv[2]
-var userCommand = process.argv[3];
+var userCommand = "";
+
+//this is so you can search songs with more than one word//
+for(var i = 3; i < process.argv.length; i++ ) {
+    userCommand = userCommand + " " + process.argv[i];
+    console.log(userCommand);
+    
+}
+
 
 //linking to my twitter account//
 //var myTweets = {screen_name: "Daniel Tweeterfield"};
@@ -30,13 +36,18 @@ function runSpotify(){
     if (err) {
         return console.log('Error occurred: ' + err);
     }
+
     
-    console.log(data.tracks.items[0].artists); 
+    console.log('Artists: ' + data.tracks.items[0].artists[0].name); 
+    console.log('Song Title: ' + data.tracks.items[0].name);
+    console.log('Preview Link: ' + data.tracks.items[0].preview_url);
+    console.log('Album: ' + data.tracks.items[0].album.name);
+    console.log('--------------------');
     });
-}
+}//end of runSpotify function
 
 switch(functCommand){
-    case 'spotify-call':
+    case 'spotify-this-song':
         runSpotify();
         break;
    //case 'twitter-call:
