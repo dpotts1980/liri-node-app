@@ -50,7 +50,7 @@ switch(functCommand){
     case 'spotify-this-song':
         runSpotify();
         break;
-   //case 'twitter-call:
-      //runTwitter();
-      //break
+    case 'twitter-call':
+        runTwitter();
+        break
 }
