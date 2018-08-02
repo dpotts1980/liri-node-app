@@ -16,7 +16,7 @@ var fs = require("fs");
 var functCommand = process.argv[2]
 var userCommand = "";
 
-//this is so you can search songs with more than one word//
+//this is so you can search songs/movies, etc with more than one word//
 for(var i = 3; i < process.argv.length; i++ ) {
     userCommand = userCommand + " " + process.argv[i];
     console.log(userCommand);
@@ -26,7 +26,31 @@ for(var i = 3; i < process.argv.length; i++ ) {
 
 //linking to my twitter account//
 //var myTweets = {screen_name: "Daniel Tweeterfield"};
-
+function runTwitter() {
+    var twitter = new Twitter(keys.twitter);
+    console.log(twitter);
+    
+    var params = {
+		screen_name: "@tweeterfield",
+		count: 20
+	};
+    
+    twitter.get('statuses/user_timeline', params, function(error, tweets, response){
+		if (!error) {
+	        for (i=0; i < tweets.length; i++) {
+	            var returnedData = ('Number: ' + (i+1) + '\n' + tweets[i].created_at + '\n' + tweets[i].text + '\n');
+	            console.log(returnedData);
+	            console.log("-------------------------");
+	        }
+	    };
+	});
+    /* //running get request through twitter//
+    twitter.get("statuses/user_timeline", myTweets, function(error, tweets, response){
+        console.log(myTweets);
+        
+    });
+ */
+}//end of runTwitter function
 
 //run my function here
 function runSpotify(){ 
@@ -50,7 +74,7 @@ switch(functCommand){
     case 'spotify-this-song':
         runSpotify();
         break;
-    case 'twitter-call':
+    case 'my-tweets':
         runTwitter();
         break
 }
