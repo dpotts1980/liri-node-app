@@ -4,6 +4,7 @@ var keys = require("./keys.js");
 //this is an import statment//
 var Twitter = require('twitter');
 var Spotify = require('node-spotify-api');
+/* var Movies = require('movie-this'); */
 
 
 
@@ -44,12 +45,7 @@ function runTwitter() {
 	        }
 	    };
 	});
-    /* //running get request through twitter//
-    twitter.get("statuses/user_timeline", myTweets, function(error, tweets, response){
-        console.log(myTweets);
-        
-    });
- */
+    
 }//end of runTwitter function
 
 //run my function here
@@ -70,11 +66,34 @@ function runSpotify(){
     });
 }//end of runSpotify function
 
+//run omdb function here
+function runOmdb() {
+    var request = require("request");
+    var queryUrl = "http://www.omdbapi.com/?t=" + userCommand + "&y=&plot=short&apikey=trilogy";
+    
+    request(queryUrl, function(error, response, body) {
+
+        // If the request is successful
+        if (!error && response.statusCode === 200) {
+      
+          // Parse the body of the site and recover just the imdbRating
+          // (Note: The syntax below for parsing isn't obvious. Just spend a few moments dissecting it).
+          console.log("Release Year: " + JSON.parse(body).Year);
+        }
+      });
+    
+    
+}//end of runOmdb
+
+
 switch(functCommand){
     case 'spotify-this-song':
         runSpotify();
         break;
     case 'my-tweets':
         runTwitter();
+        break
+    case 'movie-this':
+        runOmdb();
         break
 }
