@@ -5,6 +5,8 @@ var keys = require("./keys.js");
 var Twitter = require('twitter');
 var Spotify = require('node-spotify-api');
 /* var Movies = require('movie-this'); */
+var request = require("request");
+var fs = require('fs');
 
 
 
@@ -20,7 +22,6 @@ var userCommand = "";
 //this is so you can search songs/movies, etc with more than one word//
 for(var i = 3; i < process.argv.length; i++ ) {
     userCommand = userCommand + " " + process.argv[i];
-    console.log(userCommand);
     
 }
 
@@ -68,22 +69,51 @@ function runSpotify(){
 
 //run omdb function here
 function runOmdb() {
-    var request = require("request");
+    
     var queryUrl = "http://www.omdbapi.com/?t=" + userCommand + "&y=&plot=short&apikey=trilogy";
+
+    var filmSearch;
+    if(userCommand === undefined){
+		filmSearch = "Mr. Nobody";
+	}else{
+        filmSearch = userCommand;
+		
+	};
     
     request(queryUrl, function(error, response, body) {
 
         // If the request is successful
         if (!error && response.statusCode === 200) {
       
-          // Parse the body of the site and recover just the imdbRating
-          // (Note: The syntax below for parsing isn't obvious. Just spend a few moments dissecting it).
-          console.log("Release Year: " + JSON.parse(body).Year);
+          // Parse the body of the site and recover the necessary data
+          
+          console.log("Title: " + JSON.parse(body)["Title"]);
+          console.log("Year: " + JSON.parse(body)["Year"]);
+          console.log("IMDB Rating: " + JSON.parse(body)["imdbRating"]);
+          console.log("Rotten Tomatoes Rating: " + JSON.parse(body)["tomatoRating"]);
+          console.log("Country: " + JSON.parse(body)["Country"]);
+          console.log("Language: " + JSON.parse(body)["Language"]);
+          console.log("Plot: " + JSON.parse(body)["Plot"]);
+          console.log("Actors: " + JSON.parse(body)["Actors"]);
         }
       });
-    
+  
     
 }//end of runOmdb
+
+function runDoWhatItSays() {
+    fs.readFile("random.txt", "utf8", function(error, data) {
+        if(error){
+            console.log(error);
+        }
+        else{
+            var dataArr = data.split(",");
+            console.log(dataArr);
+            
+        }  
+
+    });//end of readFile
+}//end of runDoWhatItSays
 
 
 switch(functCommand){
@@ -96,4 +126,6 @@ switch(functCommand){
     case 'movie-this':
         runOmdb();
         break
-}
+    case `do-what-it-says`:
+        runDoWhatItSays();
+    }
