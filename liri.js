@@ -52,7 +52,10 @@ function runTwitter() {
 //run my function here
 function runSpotify(){ 
     var spotify = new Spotify(keys._spotify);
-    
+    if(userCommand === undefined) {
+        userCommand === "Thunder Road";
+    }
+    else {
     spotify.search({ type: 'track', query: userCommand }, function(err, data) {
     if (err) {
         return console.log('Error occurred: ' + err);
@@ -65,6 +68,7 @@ function runSpotify(){
     console.log('Album: ' + data.tracks.items[0].album.name);
     console.log('--------------------');
     });
+ }
 }//end of runSpotify function
 
 //run omdb function here
