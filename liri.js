@@ -75,13 +75,11 @@ function runSpotify(){
 //run omdb function here
 function runOmdb() {
     
+    if(userCommand === ""){
+	   userCommand = "back to the future";
+	}
     var queryUrl = "http://www.omdbapi.com/?t=" + userCommand + "&y=&plot=short&apikey=trilogy";
 
-   
-    if(userCommand === " "){
-		queryUrl = userCommand + "back to the future";
-	}
-    
     request(queryUrl, function(error, response, body) {
 
         // If the request is successful
@@ -110,12 +108,13 @@ function runDoWhatItSays() {
         }
         else{
             var dataArr = data.split(",");
-           /*  console.log(dataArr); */
+            console.log(dataArr)
             functCommand = dataArr[0];
             userCommand = dataArr[1];
             for(i=2; i <dataArr.length; i++){
                 userCommand = userCommand + "+" + dataArr[i];
             };
+            //run
         }//end of else statement  
 
     });//end of readFile
