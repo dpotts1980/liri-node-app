@@ -52,10 +52,11 @@ function runTwitter() {
 //run my function here
 function runSpotify(){ 
     var spotify = new Spotify(keys._spotify);
-    if(userCommand === undefined) {
-        userCommand === "Thunder Road";
+    
+   var playSong; if(userCommand === '') {
+        userCommand = ("Thunder Road");
     }
-    else {
+   
     spotify.search({ type: 'track', query: userCommand }, function(err, data) {
     if (err) {
         return console.log('Error occurred: ' + err);
@@ -68,7 +69,7 @@ function runSpotify(){
     console.log('Album: ' + data.tracks.items[0].album.name);
     console.log('--------------------');
     });
- }
+ 
 }//end of runSpotify function
 
 //run omdb function here
@@ -76,13 +77,10 @@ function runOmdb() {
     
     var queryUrl = "http://www.omdbapi.com/?t=" + userCommand + "&y=&plot=short&apikey=trilogy";
 
-    var filmSearch;
-    if(userCommand === undefined){
-		filmSearch = "Mr. Nobody";
-	}else{
-        filmSearch = userCommand;
-		
-	};
+   
+    if(userCommand === " "){
+		queryUrl = userCommand + "back to the future";
+	}
     
     request(queryUrl, function(error, response, body) {
 
