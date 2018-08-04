@@ -110,9 +110,13 @@ function runDoWhatItSays() {
         }
         else{
             var dataArr = data.split(",");
-            console.log(dataArr);
-            
-        }  
+           /*  console.log(dataArr); */
+            functCommand = dataArr[0];
+            userCommand = dataArr[1];
+            for(i=2; i <dataArr.length; i++){
+                userCommand = userCommand + "+" + dataArr[i];
+            };
+        }//end of else statement  
 
     });//end of readFile
 }//end of runDoWhatItSays
