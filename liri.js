@@ -27,7 +27,6 @@ for(var i = 3; i < process.argv.length; i++ ) {
 
 
 //linking to my twitter account//
-//var myTweets = {screen_name: "Daniel Tweeterfield"};
 function runTwitter() {
     var twitter = new Twitter(keys.twitter);
     console.log(twitter);
@@ -49,7 +48,7 @@ function runTwitter() {
     
 }//end of runTwitter function
 
-//run my function here
+//run spotify function here
 function runSpotify(){ 
     var spotify = new Spotify(keys._spotify);
     
@@ -108,13 +107,11 @@ function runDoWhatItSays() {
         }
         else{
             var dataArr = data.split(",");
-            console.log(dataArr)
-            functCommand = dataArr[0];
-            userCommand = dataArr[1];
-            for(i=2; i <dataArr.length; i++){
-                userCommand = userCommand + "+" + dataArr[i];
-            };
-            //run
+                if(dataArr[0] === "spotify-this-song") {
+                    userCommand = dataArr[1];
+                    runSpotify(userCommand);
+                }
+         
         }//end of else statement  
 
     });//end of readFile
